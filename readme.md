@@ -1,5 +1,8 @@
 # Стъпки
 
+Прочетете [README файла](configurer/README.md) на приложението за конфигурация.
+
+Създайте `config.json` като копирате `config.json.sample`.
 
 
 

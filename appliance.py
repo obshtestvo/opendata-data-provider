@@ -20,7 +20,8 @@ dataset_title = '...'
 # Put the details of the dataset we're going to create into a dict.
 dataset_dict = {
     'name': dataset_name,
-    'title': dataset_title
+    'title': dataset_title,
+    'owner_org': organization
 }
 
 # Use the json module to dump the dictionary to a string for posting.
@@ -50,7 +51,7 @@ response_file = requests.post(CREATE_RESOURCE_URL,
                   "name": "a" + str(random.randrange(1, 232321)),
                   "url": "upload"
                   },
-              headers={"Authorization": api_key},
+              headers={ "Authorization": api_key },
               files=[('upload', open('/Users/petko/repos/opendata-data-provider/bla.csv'))])
 
 assert response_file.status_code == 200

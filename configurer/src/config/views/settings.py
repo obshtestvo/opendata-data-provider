@@ -4,7 +4,7 @@ from restful.decorators import restful_view_templates
 from django import forms
 from django.conf import settings
 from config.storage.file import read, write
-configpath = join(settings.BASE_DIR, 'config.json')
+configpath = join(settings.BASE_DIR, '../config.json')
 
 @restful_view_templates
 class SettingsView(View):
@@ -37,4 +37,4 @@ class Form(forms.Form):
     api_token = forms.CharField(label='API token', max_length=100)
     organization = forms.CharField(label='Организация', max_length=100)
     dataset_name = forms.CharField(label='Име на набора от данни', max_length=100)
-    dataset_title = forms.CharField(label='Име на набора от данни', max_length=100)
+    dataset_title = forms.CharField(label='Част от адреса', max_length=100)

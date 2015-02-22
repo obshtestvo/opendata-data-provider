@@ -11,3 +11,4 @@ static/
 .vagrant/
 .sass-cache
 *.css.map
+config.json

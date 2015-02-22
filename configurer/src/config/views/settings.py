@@ -1,9 +1,13 @@
 from os.path import join
 from django.views.generic.base import View
 from restful.decorators import restful_view_templates
+
 from django import forms
 from django.conf import settings
 from config.storage.file import read, write
+from django.shortcuts import redirect
+from django.contrib import messages
+
 configpath = join(settings.BASE_DIR, '../config.json')
 
 @restful_view_templates
@@ -27,10 +31,13 @@ class SettingsView(View):
         form = Form(data=request.params)
         if form.is_valid():
             config["details"]["organization"] = form.cleaned_data["organization"]
-            config["details"]["dataset_name"] = form.cleaned_data["dataset_name"]
-            config["details"]["dataset_title"] = form.cleaned_data["dataset_title"]
+            config["details"]["name"] = form.cleaned_data["dataset_name"]
+            config["details"]["title"] = form.cleaned_data["dataset_title"]
             config["ckan"]["api_token"] = form.cleaned_data["api_token"]
-            write(config)
+            write(config, configpath)
+            messages.success(request, 'Настройките са запазени.')
+            return redirect('settings')
+
 
 
 class Form(forms.Form):

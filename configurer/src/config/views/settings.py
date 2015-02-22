@@ -25,7 +25,7 @@ class SettingsView(View):
             "details": {},
         }
         form = Form(data=request.params)
-        if form.is_valid:
+        if form.is_valid():
             config["details"]["organization"] = form.cleaned_data["organization"]
             config["details"]["dataset_name"] = form.cleaned_data["dataset_name"]
             config["details"]["dataset_title"] = form.cleaned_data["dataset_title"]

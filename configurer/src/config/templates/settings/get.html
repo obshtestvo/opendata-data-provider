@@ -1,0 +1,17 @@
+{% load staticfiles %}
+{% load bootstrap_tags %}
+<html>
+<head>
+    <title>Configurer</title>
+    <link rel="stylesheet" href="{% static 'lib/bootstrap/dist/css/bootstrap.min.css'  %}"/>
+</head>
+<body>
+<h1>Настройки</h1>
+<form action="" method="post">
+    {{ form|as_bootstrap }}
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Запази</button>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,13 @@
+env/access.log
+env/settings_fabric.py
+configurer/src/config/static/libs/
+.env
+.env/.virtualenv
+.env.vagrant
+static/
+*.pyc
+*.DS_Store
+*.idea
+.vagrant/
+.sass-cache
+*.css.map

@@ -7,59 +7,69 @@ import pprint
 import random
 import requests
 
-# constants
-HOST = "https://opendata.government.bg/"
-CREATE_PACKAGA_URL = HOST + "api/3/action/package_create"
-CREATE_RESOURCE_URL = HOST + "api/3/action/resource_create"
+class OpenDataProvider(object):
 
-# config
-api_key = "..."
-dataset_name = "a" + str(random.randrange(1, 23232333333332))
-dataset_title = '...'
+    def __init__(self):
+        # constants
+        HOST = "https://opendata.government.bg/"
+        self.CREATE_PACKAGA_URL = HOST + "api/3/action/package_create"
+        self.CREATE_RESOURCE_URL = HOST + "api/3/action/resource_create"
 
-# Put the details of the dataset we're going to create into a dict.
-dataset_dict = {
-    'name': dataset_name,
-    'title': dataset_title,
-    'owner_org': organization
-}
+        # config
+        self.api_key = "..."
+        self.dataset_name = "a" + str(random.randrange(1, 23232333333332))
+        self.dataset_title = "Име"
+        self.organization = "hackathonfebruary2015"
 
-# Use the json module to dump the dictionary to a string for posting.
-data_string = urllib.parse.quote(json.dumps(dataset_dict))
+    def push_dataset(self):
 
-# We'll use the package_create function to create a new dataset.
-request = urllib.request.Request(CREATE_PACKAGA_URL)
+        # Put the details of the dataset we're going to create into a dict.
+        dataset_dict = {
+            'name': self.dataset_name,
+            'title': self.dataset_title,
+            'owner_org': self.organization
+        }
 
-# Creating a dataset requires an authorization header.
-request.add_header('Authorization', api_key)
+        # Use the json module to dump the dictionary to a string for posting.
+        data_string = urllib.parse.quote(json.dumps(dataset_dict))
 
-# Make the HTTP request.
-response = urllib.request.urlopen(request, data_string.encode())
-assert response.code == 200
+        # We'll use the package_create function to create a new dataset.
+        request = urllib.request.Request(self.CREATE_PACKAGA_URL)
 
-response_dict = json.loads(response.read().decode())
+        # Creating a dataset requires an authorization header.
+        request.add_header('Authorization', self.api_key)
 
-# Check the contents of the response.
-assert response_dict['success'] is True
-result = response_dict['result']
+        # Make the HTTP request.
+        response = urllib.request.urlopen(request, data_string.encode())
+        assert response.code == 200
+        response_dict = json.loads(response.read().decode())
 
-package_id = result['id']
+        # Check the contents of the response.
+        assert response_dict['success'] is True
+        return response_dict['result']['id']
 
-response_file = requests.post(CREATE_RESOURCE_URL,
+    def push_resource(self, package_id):
+
+        response_file = requests.post(self.CREATE_RESOURCE_URL,
               data={
                   "package_id": package_id,
                   "name": "a" + str(random.randrange(1, 232321)),
                   "url": "upload"
                   },
-              headers={ "Authorization": api_key },
+              headers={ "Authorization": self.api_key },
               files=[('upload', open('/Users/petko/repos/opendata-data-provider/bla.csv'))])
 
-assert response_file.status_code == 200
+        assert response_file.status_code == 200
 
-response_file_json = response_file.json()
+        response_file_json = response_file.json()
 
-if response_file_json['success']:
-    pprint.pprint('Resource ' + response_file_json['result']['name'] +
-            ' uploaded to: ' + response_file_json['result']['url'])
+        if response_file_json['success']:
+            pprint.pprint('Resource ' + response_file_json['result']['name'] + ' uploaded to: ' + response_file_json['result']['url'])
+
+
+if __name__ == '__main__':
+    odp = OpenDataProvider()
+    package_id = odp.push_dataset()
+    odp.push_resource(package_id)
 
 

@@ -1,0 +1,17 @@
+{
+  db: {
+    type: "psql",
+    path: "...",
+    username: "...",
+    password: "...",
+    tables: [{
+      name: "...",
+      ckan_name: "..."
+    }]
+  },
+  ckan: {
+    api_token: "....",
+    organization: "...",
+    dataset_name: "..."
+  }
+}

@@ -6,6 +6,8 @@ import json
 import pprint
 import random
 import requests
+import os
+from configurer.src.config.storage.file import read
 
 class OpenDataProvider(object):
 
@@ -14,12 +16,14 @@ class OpenDataProvider(object):
         HOST = "https://opendata.government.bg/"
         self.CREATE_PACKAGA_URL = HOST + "api/3/action/package_create"
         self.CREATE_RESOURCE_URL = HOST + "api/3/action/resource_create"
+        self.FILE_FORMATS = ["csv", "tsv"]
 
         # config
         self.api_key = "..."
         self.dataset_name = "a" + str(random.randrange(1, 23232333333332))
         self.dataset_title = "Име"
         self.organization = "hackathonfebruary2015"
+        self.source_dir = "..."
 
     def push_dataset(self):
 
@@ -48,7 +52,7 @@ class OpenDataProvider(object):
         assert response_dict['success'] is True
         return response_dict['result']['id']
 
-    def push_resource(self, package_id):
+    def push_resource(self, package_id, path_to_file):
 
         response_file = requests.post(self.CREATE_RESOURCE_URL,
               data={
@@ -57,19 +61,21 @@ class OpenDataProvider(object):
                   "url": "upload"
                   },
               headers={ "Authorization": self.api_key },
-              files=[('upload', open('/Users/petko/repos/opendata-data-provider/bla.csv'))])
+              files=[('upload', open(path_to_file))])
 
         assert response_file.status_code == 200
+        return response_file.json()
 
-        response_file_json = response_file.json()
-
-        if response_file_json['success']:
-            pprint.pprint('Resource ' + response_file_json['result']['name'] + ' uploaded to: ' + response_file_json['result']['url'])
-
+    def read_files(self, path_to_files):
+        return os.listdir('/Users/petko/repos')
 
 if __name__ == '__main__':
     odp = OpenDataProvider()
     package_id = odp.push_dataset()
-    odp.push_resource(package_id)
+    data_files = [x for x in os.listdir(odp.source_dir) 
+                    if x.split('.')[-1] in odp.FILE_FORMATS]
+    for datafile in data_files:
+        odp.push_resource(package_id, odp.source_dir + "/" + datafile)
+        print("Uploaded " + datafile)
 
 

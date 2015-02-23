@@ -18,24 +18,16 @@ class OpenDataProvider(object):
         self.CREATE_RESOURCE_URL = HOST + "api/3/action/resource_create"
         self.SUPPORTED_FILE_FORMATS = ["csv", "tsv"]
 
-        # config
-        self.api_key = "..."
-        self.dataset_name = "a" + str(random.randrange(1, 23232333333332))
-        self.dataset_title = "Име"
-        self.organization = "hackathonfebruary2015"
-        self.source_dir = "..."
+        # Config
+        options = read('config.json')
+        self.api_token = options['ckan']['api_token']
+        self.options = options['details']
+        self.source_path = options['source']['path']
 
     def push_dataset(self):
 
-        # Put the details of the dataset we're going to create into a dict.
-        dataset_dict = {
-            'name': self.dataset_name,
-            'title': self.dataset_title,
-            'owner_org': self.organization
-        }
-
         # Use the json module to dump the dictionary to a string for posting.
-        data_string = urllib.parse.quote(json.dumps(dataset_dict))
+        data_string = urllib.parse.quote(json.dumps(self.options))
 
         # We'll use the package_create function to create a new dataset.
         request = urllib.request.Request(self.CREATE_PACKAGA_URL)

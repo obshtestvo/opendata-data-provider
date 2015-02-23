@@ -58,9 +58,6 @@ class OpenDataProvider(object):
         assert response_file.status_code == 200
         return response_file.json()
 
-    def read_files(self, path_to_files):
-        return os.listdir('/Users/petko/repos')
-
 if __name__ == '__main__':
     odp = OpenDataProvider()
     package_id = odp.push_dataset()

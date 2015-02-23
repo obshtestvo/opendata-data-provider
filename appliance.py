@@ -14,7 +14,7 @@ class OpenDataProvider(object):
     def __init__(self, config_file='config.json'):
         # Constants
         HOST = "https://opendata.government.bg/"
-        self.CREATE_PACKAGA_URL = HOST + "api/3/action/package_create"
+        self.CREATE_PACKAGE_URL = HOST + "api/3/action/package_create"
         self.CREATE_RESOURCE_URL = HOST + "api/3/action/resource_create"
         self.SUPPORTED_FILE_FORMATS = ["csv", "tsv"]
 
@@ -30,7 +30,7 @@ class OpenDataProvider(object):
         data_string = urllib.parse.quote(json.dumps(self.options))
 
         # We'll use the package_create function to create a new dataset.
-        request = urllib.request.Request(self.CREATE_PACKAGA_URL)
+        request = urllib.request.Request(self.CREATE_PACKAGE_URL)
 
         # Creating a dataset requires an authorization header.
         request.add_header('Authorization', self.api_token)

@@ -1,6 +1,7 @@
 env/access.log
 env/settings_fabric.py
 configurer/src/config/static/libs/
+configurer/env/.virtualenv/
 .env
 .env/.virtualenv
 .env.vagrant

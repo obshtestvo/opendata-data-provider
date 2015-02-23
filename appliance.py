@@ -12,11 +12,11 @@ from configurer.src.config.storage.file import read
 class OpenDataProvider(object):
 
     def __init__(self):
-        # constants
+        # Constants
         HOST = "https://opendata.government.bg/"
         self.CREATE_PACKAGA_URL = HOST + "api/3/action/package_create"
         self.CREATE_RESOURCE_URL = HOST + "api/3/action/resource_create"
-        self.FILE_FORMATS = ["csv", "tsv"]
+        self.SUPPORTED_FILE_FORMATS = ["csv", "tsv"]
 
         # config
         self.api_key = "..."
@@ -41,7 +41,7 @@ class OpenDataProvider(object):
         request = urllib.request.Request(self.CREATE_PACKAGA_URL)
 
         # Creating a dataset requires an authorization header.
-        request.add_header('Authorization', self.api_key)
+        request.add_header('Authorization', self.api_token)
 
         # Make the HTTP request.
         response = urllib.request.urlopen(request, data_string.encode())
@@ -60,7 +60,7 @@ class OpenDataProvider(object):
                   "name": "a" + str(random.randrange(1, 232321)),
                   "url": "upload"
                   },
-              headers={ "Authorization": self.api_key },
+              headers={ "Authorization": self.api_token },
               files=[('upload', open(path_to_file))])
 
         assert response_file.status_code == 200
@@ -72,10 +72,10 @@ class OpenDataProvider(object):
 if __name__ == '__main__':
     odp = OpenDataProvider()
     package_id = odp.push_dataset()
-    data_files = [x for x in os.listdir(odp.source_dir) 
-                    if x.split('.')[-1] in odp.FILE_FORMATS]
+    data_files = [x for x in os.listdir(odp.source_path)
+                    if x.split('.')[-1] in odp.SUPPORTED_FILE_FORMATS]
     for datafile in data_files:
-        odp.push_resource(package_id, odp.source_dir + "/" + datafile)
+        odp.push_resource(package_id, odp.source_path + "/" + datafile)
         print("Uploaded " + datafile)
 
 

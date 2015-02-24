@@ -11,7 +11,7 @@ from configurer.src.config.storage.file import read
 
 class OpenDataProvider(object):
 
-    def __init__(self):
+    def __init__(self, config_file='config.json'):
         # Constants
         HOST = "https://opendata.government.bg/"
         self.CREATE_PACKAGA_URL = HOST + "api/3/action/package_create"
@@ -19,10 +19,10 @@ class OpenDataProvider(object):
         self.SUPPORTED_FILE_FORMATS = ["csv", "tsv"]
 
         # Config
-        options = read('config.json')
-        self.api_token = options['ckan']['api_token']
-        self.options = options['details']
-        self.source_path = options['source']['path']
+        config = read(config_file)
+        self.api_token = config['ckan']['api_token']
+        self.options = config['details']
+        self.source_path = config['source']['path']
 
     def push_dataset(self):
 

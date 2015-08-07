@@ -22,4 +22,4 @@
 
 За да се използват тези скриптове на същия сървър, на който е инсталиран CKAN, следва да се инсталира и конфигурира PHP с nginx.
 
-Следват се стъпките, <a href="http://askubuntu.com/questions/134666/what-is-the-easiest-way-to-enable-php-on-nginx">посочени тук</a>, като към nginx.conf, освен описанията location фрагмент, се добавя и `root /var/www/php`. PHP файловете се разполагат в същата директория.
+Следват се стъпките, <a href="http://askubuntu.com/questions/134666/what-is-the-easiest-way-to-enable-php-on-nginx">посочени тук</a>, като към nginx.conf, освен описаният location фрагмент, се добавя и `root /var/www/php`. PHP файловете се разполагат в същата директория.

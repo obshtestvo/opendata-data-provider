@@ -1,0 +1,26 @@
+{
+  "name": "opendata-data-provider",
+  "version": "0.0.1",
+  "description": "A tool for feeding data to CKAN from various inputs",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obshtestvo/opendata-data-provider.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/banzsh/opendata-data-provider/issues"
+  },
+  "homepage": "https://github.com/banzsh/opendata-data-provider#readme",
+  "dependencies": {
+    "ckan": "^0.2.3",
+    "config": "^1.19.0",
+    "csv-parse": "^1.0.1",
+    "mssql": "^3.0.1",
+    "mysql": "^2.10.2",
+    "pg": "^4.4.4",
+    "underscore": "^1.8.3"
+  }
+}

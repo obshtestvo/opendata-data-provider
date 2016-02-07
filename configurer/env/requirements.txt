@@ -1,3 +1,0 @@
-Django==1.7.4
-django-forms-bootstrap==3.0.1
--e git+https://github.com/obshtestvo-utilities/django-restful.git@python3#egg=restful

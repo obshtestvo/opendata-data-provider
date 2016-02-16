@@ -1,0 +1,27 @@
+{
+  "ckanUrl": "",
+  "apiKey": "",
+  "datasets": [
+    {
+      "parameters": {
+        "name": ""
+      },
+      "resources": [
+        {
+          "name": "",
+          "source": "csv",
+          "file": "/path/to/file.csv"
+        },
+        {
+          "name": "",
+          "source": "mysql,postgres,mssql",
+          "host": "",
+          "username": "",
+          "password": "",
+          "database": "",
+          "query": ""
+        }
+      ]
+    }
+  ]
+}

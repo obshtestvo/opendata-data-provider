@@ -5,8 +5,8 @@ header("Content-Type: text/html;charset=utf-8");
 <body>
 Качете xls(x) файла, който искате да конвертирате към csv:
 <form action="convert.php" method="POST" enctype="multipart/form-data">
-<input type="file" name="sourceFile" />
-<input type="submit" value="Изпрати" />
+<input type="file" name="sourceFile" size="35" />
+<input type="submit" value="Конвертирай" />
 </form>
 </body>
 </html>
